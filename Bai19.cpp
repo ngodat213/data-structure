@@ -1,35 +1,32 @@
 #include<iostream>
-#include<string.h>
 using namespace std;
 
-typedef struct SinhVien{
-    long long id;
+typedef struct Student{
+    int id;
     string name;
     float score;
-}SV;
+}ST;
 
 struct Node{
-    SV data;
+    ST data;
     Node* next;
 };
-// STRUCT
-void scanSV(SV &sv){
-    cout << "ID: ";
-    cin >> sv.id;
-    cout << "Name: ";
+// Function struct SV
+void inputStudent(ST &st){
+    cout << "id: ";
+    cin >> st.id;
+    cout << "name: ";
     cin.ignore();
-    getline(cin, sv.name);
-    cout << "Score: ";
-    cin >> sv.score;
+    getline(cin, st.name);
+    cout << "score: ";
+    cin >> st.score;
 }
 
-void showSV(SV sv){
-    cout << "ID: " << sv.id << endl;
-    cout << "Name: " << sv.name << endl;
-    cout << "Score: " << sv.score << endl;
+void outputStudent(ST st){
+    printf("student{id=%d, name=\'%s\', score=%.2f}\n", st.id, st.name.c_str(), st.score);
 }
 
-// NODE
+// Function node
 
 void init(Node* &pHead){
     pHead = NULL;
@@ -39,14 +36,14 @@ bool isEmpty(Node* node){
     return node == NULL;
 }
 
-Node* createNode(SV n){
+Node* createNode(ST n){
     Node* p = new Node;
     p->data = n;
     p->next = NULL;
     return p;
 }
 
-void insertFirst(Node* &pHead, SV n){
+void insertFirst(Node* &pHead, ST n){
     Node* p = createNode(n);
     if(pHead == NULL){
         pHead = p;
@@ -57,7 +54,7 @@ void insertFirst(Node* &pHead, SV n){
     }
 }
 
-void insertAfter(Node* p, SV n){
+void insertAfter(Node* p, ST n){
 	Node* tmp = createNode(n);
 	tmp->next = p->next;
 	p->next = tmp;
@@ -72,15 +69,15 @@ void deleteFirst(Node* &pHead){
 void showList(Node* pHead){
     Node* p = pHead;
     while(p != NULL){
-        showSV(p->data);
+        outputStudent(p->data);
         p = p->next;
     }
 }
 
-Node* findNode(Node* pHead, int id){
+Node* findNode(Node* pHead, int n){
     Node* p = pHead;
     while(p!= NULL){
-        if(p->data.id == id){
+        if(p->data.id == n){
             return p;
         }
         p = p->next;
@@ -94,19 +91,54 @@ void deleteNode(Node* &pHead){
 	}
 }
 
-void deleteAfter(Node *&node){
+void deleteByID(Node* &pHead){
 
+}
+
+void deleteAfter(Node *node){
+    Node* p;
+}
+// Function menu
+void menu(){
+    cout << "1. insert first student" << endl;
+    cout << "2. insert after student" << endl;
+    cout << "3. delete by id student" << endl;
+    cout << "4. show list student" << endl;
+    cout << "5. find node student" << endl;
+    cout << "6. delete all node" << endl;
+    cout << "7. exit" << endl;
+    cout << "[Press the number of your choice]" << endl;
 }
 
 int main(){
     Node* pHead;
     init(pHead);
-    SV sv;
-    scanSV(sv);
-    insertFirst(pHead, sv);
-    insertFirst(pHead, sv);
-    insertFirst(pHead, sv);
-    showSV(findNode(pHead, 2)->data);
-    showList(pHead);
+    while(true){
+        menu();
+        int choice;
+        cin >> choice;
+        switch(choice){
+        case 1: {
+            ST st;
+            inputStudent(st);
+            insertFirst(pHead, st);
+        }
+            break;
+        case 2: {
+            ST st;
+            inputStudent(st);
+            insertAfter(pHead, st);
+        }
+            break;
+        case 3:
+            break;
+        case 4:
+            showList(pHead);
+            break;
+        case 7:
+            return false;
+        }
+    }
     return 0;
 }
+
