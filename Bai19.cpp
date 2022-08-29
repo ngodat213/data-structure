@@ -1,10 +1,35 @@
 #include<iostream>
+#include<string.h>
 using namespace std;
 
+typedef struct SinhVien{
+    long long id;
+    string name;
+    float score;
+}SV;
+
 struct Node{
-    int data;
+    SV data;
     Node* next;
 };
+// STRUCT
+void scanSV(SV &sv){
+    cout << "ID: ";
+    cin >> sv.id;
+    cout << "Name: ";
+    cin.ignore();
+    getline(cin, sv.name);
+    cout << "Score: ";
+    cin >> sv.score;
+}
+
+void showSV(SV sv){
+    cout << "ID: " << sv.id << endl;
+    cout << "Name: " << sv.name << endl;
+    cout << "Score: " << sv.score << endl;
+}
+
+// NODE
 
 void init(Node* &pHead){
     pHead = NULL;
@@ -14,14 +39,14 @@ bool isEmpty(Node* node){
     return node == NULL;
 }
 
-Node* createNode(int n){
+Node* createNode(SV n){
     Node* p = new Node;
     p->data = n;
     p->next = NULL;
     return p;
 }
 
-void insertFirst(Node* &pHead, int n){
+void insertFirst(Node* &pHead, SV n){
     Node* p = createNode(n);
     if(pHead == NULL){
         pHead = p;
@@ -32,7 +57,7 @@ void insertFirst(Node* &pHead, int n){
     }
 }
 
-void insertAfter(Node* p, int n){
+void insertAfter(Node* p, SV n){
 	Node* tmp = createNode(n);
 	tmp->next = p->next;
 	p->next = tmp;
@@ -47,15 +72,15 @@ void deleteFirst(Node* &pHead){
 void showList(Node* pHead){
     Node* p = pHead;
     while(p != NULL){
-        cout << p->data << " ";
+        showSV(p->data);
         p = p->next;
     }
 }
 
-Node* findNode(Node* pHead, int n){
+Node* findNode(Node* pHead, int id){
     Node* p = pHead;
     while(p!= NULL){
-        if(p->data == n){
+        if(p->data.id == id){
             return p;
         }
         p = p->next;
@@ -69,14 +94,19 @@ void deleteNode(Node* &pHead){
 	}
 }
 
+void deleteAfter(Node *&node){
+
+}
+
 int main(){
     Node* pHead;
     init(pHead);
-    insertFirst(pHead, 1);
-    insertFirst(pHead, 2);
-    insertFirst(pHead, 3);
-    showList(pHead);
-    deleteFirst(pHead);
+    SV sv;
+    scanSV(sv);
+    insertFirst(pHead, sv);
+    insertFirst(pHead, sv);
+    insertFirst(pHead, sv);
+    showSV(findNode(pHead, 2)->data);
     showList(pHead);
     return 0;
 }
