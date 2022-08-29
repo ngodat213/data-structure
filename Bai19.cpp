@@ -1,4 +1,5 @@
 #include<iostream>
+#include<windows.h>
 using namespace std;
 
 typedef struct Student{
@@ -128,6 +129,21 @@ void sortNode(Node* &node){
     }
 }
 
+bool isTrueID(Node* node, int value){
+    if(node == NULL){
+        return true;
+    }else{
+        Node* temp = node;
+        while(!isEmpty(temp)){
+            if(temp->data.id == value){
+                return false;
+            }
+            temp = temp->next;
+        }
+    }
+    return true;
+}
+
 // Function menu
 void menu1(){
     cout << "1. insert first student" << endl;
@@ -206,6 +222,8 @@ int main(){
         }
             break;
         }
+        system("pause");
+        system("cls");
     }
     return 0;
 }
