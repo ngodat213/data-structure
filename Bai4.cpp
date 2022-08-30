@@ -39,7 +39,7 @@ int peek(queue q){
     if(!isEmpty(q)){
         return q->data;
     }else{
-        return 0;
+        cout << "Queue is empty!" << endl;
     }
 }
 
