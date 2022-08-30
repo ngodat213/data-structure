@@ -1,4 +1,3 @@
-// HydraCoder, user C++
 #include<iostream>
 using namespace std;
 
@@ -64,19 +63,17 @@ void showStack(stack s){
 
 stack dec_bin(int dec){
     stack s;
+    init(s);
     while(dec != 0){
         push(s, dec%2);
         dec/=2;
     }
     return s;
 }
-
 int main() {
     stack temp;
     init(temp);
     temp = dec_bin(213);
-    while(temp != NULL){
-        cout << pop(temp) << " ";
-    }
+    showStack(temp);
     return 0;
 }
