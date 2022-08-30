@@ -12,15 +12,27 @@ struct Node{
     ST data;
     Node* next;
 };
+
+//Khai bao
+struct Node* nodeData;
+
+// Call function
+bool isTrueID(int value);
+
 // Function struct SV
 void inputStudent(ST &st){
-    cout << "id: ";
-    cin >> st.id;
-    cout << "name: ";
-    cin.ignore();
-    getline(cin, st.name);
-    cout << "score: ";
-    cin >> st.score;
+    do{
+        cout << "id: ";
+        cin >> st.id;
+        cout << "name: ";
+        cin.ignore();
+        getline(cin, st.name);
+        cout << "score: ";
+        cin >> st.score;
+        if(!isTrueID(st.id)){
+            cout << "data already available!" << endl;
+        }
+    }while(!isTrueID(st.id));
 }
 
 void outputStudent(ST st){
@@ -129,11 +141,11 @@ void sortNode(Node* &node){
     }
 }
 
-bool isTrueID(Node* node, int value){
-    if(node == NULL){
+bool isTrueID(int value){
+    if(nodeData == NULL){
         return true;
     }else{
-        Node* temp = node;
+        Node* temp = nodeData;
         while(!isEmpty(temp)){
             if(temp->data.id == value){
                 return false;
@@ -172,8 +184,7 @@ void menu(){
 }
 
 int main(){
-    Node* pHead;
-    init(pHead);
+    init(nodeData);
     while(true){
         menu();
         int choice;
@@ -182,43 +193,43 @@ int main(){
         case 1: {
             ST st;
             inputStudent(st);
-            insertFirst(pHead, st);
+            insertFirst(nodeData, st);
         }
             break;
         case 2: {
             ST st;
             inputStudent(st);
-            insertAfter(pHead, st);
+            insertAfter(nodeData, st);
         }
             break;
         case 3:{
             int value;
             cout << "enter id to delete student: ";
             cin >> value;
-            del_id(pHead, value);
+            del_id(nodeData, value);
         }
             break;
         case 4:
-            showList(pHead);
+            showList(nodeData);
             break;
         case 5:{
             int value;
             cout << "enter id to find student" << endl;
             cin >> value;
-            if(findNode(pHead, value) != NULL){
-                outputStudent(findNode(pHead, value)->data);
+            if(findNode(nodeData, value) != NULL){
+                outputStudent(findNode(nodeData, value)->data);
             }else{
                 cout << "no info!" << endl;
             }
         }
             break;
         case 6:{
-            deleteNode(pHead);
+            deleteNode(nodeData);
             cout << "delete successful!" << endl;
         }
         case 7:{
-            sortNode(pHead);
-            showList(pHead);
+            sortNode(nodeData);
+            showList(nodeData);
         }
             break;
         }
