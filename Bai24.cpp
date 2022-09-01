@@ -13,13 +13,8 @@ struct Node{
     Node* next;
 };
 
-struct List{
-    Node *pHead;
-    Node *pTail;
-};
-
 // Data
-List listData;
+Node* dataNode;
 
 // Call function
 bool isScore(int score);
@@ -34,12 +29,12 @@ bool isScore(int score){
 }
 
 bool isID(int value){
-    List l = listData;
-    if(isEmpty(l)){
+    Node* p = dataNode->next;
+    if(isEmpty(p)){
         return true;
     }else {
-        while(!isEmpty(l)){
-            if(l->data.id == value){
+        while(!isEmpty(p) && p->next != dataNode){
+            if(p->data.id == value){
                 return false;
             }
             p = p->next;
@@ -57,7 +52,7 @@ void inputStudent(ST &st){
         getline(cin, st.name);
         cout << "score: ";
         cin >> st.score;
-    }while(!isScore(st.score) || !isID(st.id));
+    }while(!isScore(st.score)/* || !isID(st.id)*/);
 }
 
 void outputStudent(ST st){
@@ -65,12 +60,12 @@ void outputStudent(ST st){
 }
 
 // Function node struct
-bool isEmpty(List l){
-    return l.pHead == NULL;
+bool isEmpty(Node* node){
+    return node == NULL;
 }
 
-void init(List &l){
-    l.pHead = l.pHead = NULL;
+void init(Node* &node){
+    node = NULL;
 }
 
 Node* createNode(ST st){
@@ -79,67 +74,60 @@ Node* createNode(ST st){
         return NULL;
     }
     node->data = st;
-    node->next = NULL;
     return node;
 }
 
-void insertHead(List &l, ST st){
+Node* insertHead(Node* tail, ST st){
     Node* p = createNode(st);
-    if(isEmpty(l)){
-        l.pHead = l.pTail = p;
+    if(isEmpty(tail)){
+        tail = p;
+        p->next = p;
+
     }else{
-        p->next = l.pHead;
-        l.pHead = p;
+        p->next = tail->next;
+        tail->next = p;
     }
+    return tail;
 }
 
-void insertTaiL(List &l, ST st){
-    Node*p = createNode(st);
-    if(isEmpty(l)){
-        insertHead(l, st);
-    }else{
-        l.pTail->next = p;
-        l.pTail = p;
-    }
-}
-
-void showList(Node* node){
-    Node* p = node;
-    while(!isEmpty(p)){
-        outputStudent(p->data);
-        p = p->next;
-    }
-}
-
-ST output_thanScore(float value){
-    Node* p = dataNode;
-    while(!isEmpty(p)){
-        if(p->data.score > value){
+void showList(Node* tail){
+    Node* p = tail;
+    if(tail != NULL){
+        do{
+            p = p->next;
             outputStudent(p->data);
-        }
-        p = p->next;
+        }while(p != tail);
     }
 }
 
-void find_name(Node* node, string value){
-    Node* p = node;
-    int n = 0;
-    while(!isEmpty(p)){
-        if(p->data.name == value){
-            outputStudent(p->data);
-            n++;
-        }
-        p = p->next;
-    }
-    if(n == 0){
-        cout << "no info" << endl;
+void output_thanScore(Node* tail, float value){
+    Node* p = tail;
+    if(tail != NULL){
+        do{
+            p = p->next;
+            if(p->data.score > value){
+                outputStudent(p->data);
+            }
+        }while(p != tail);
     }
 }
 
-void sortStudent(Node* &node){
+void find_name(Node* tail, string value){
+    Node* p = tail;
+    if(tail != NULL){
+        do{
+            p = p->next;
+            if(p->data.name == value){
+                outputStudent(p->data);
+            }
+        }while(p != tail);
+    }
+}
+
+void sortStudent(Node* &tail){
     Node* i, *j;
-    for(i = node; i != NULL; i = i->next){
-        for(j = i->next; j != NULL; j = j->next){
+    for(i = tail->next; i->next != tail->next; i = i->next){
+        for(j = i->next; j != tail->next; j = j->next){
             if(i->data.score > j->data.score){
                 ST temp = i->data;
                 i->data = j->data;
@@ -168,7 +156,7 @@ int main(){
             case 1:{
                 ST value;
                 inputStudent(value);
-                insertHead(listData, value);
+                dataNode = insertHead(dataNode, value);
                 break;
             }
             case 2:{
@@ -179,7 +167,7 @@ int main(){
                 float value;
                 cout << "score target: ";
                 cin >> value;
-                output_thanScore(value);
+                output_thanScore(dataNode, value);
                 break;
             }
             case 4:{
@@ -199,5 +187,5 @@ int main(){
         }
         system("pause");
         system("cls");
-    }while(true);
+    }while(1);
 }
