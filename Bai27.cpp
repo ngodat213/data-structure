@@ -45,14 +45,25 @@ void postOder(Tree* tree){
     cout << tree->data << " ";
 }
 
-Tree* search_tree(Tree* tree, int target){
+void insertFirst(Tree* &tree, int data){
+    Tree* p = createTree(data);
+    if(tree == NULL){
+        tree = p;
+    }
+
+}
+
+Tree* tree_search(Tree* tree, int key){
     Tree* p = tree;
-    if(p->data == target){
+    if(p->data == key){
         return p;
     }
-    if(isEmpty(tree)){
-        return NULL;
+    if(p->data > key){
+        tree_search(p->pLeft, key);
+    }else{
+        tree_search(p->pRight, key);
     }
+    return NULL;
 }
 
 int main(){
