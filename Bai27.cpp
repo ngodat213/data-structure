@@ -49,8 +49,13 @@ void insertFirst(Tree* &tree, int data){
     Tree* p = createTree(data);
     if(tree == NULL){
         tree = p;
+    }else{
+        if(data > tree.data){
+            insertFirst(tree->pRight, data);
+        }else{
+            insertFirst(tree->pLeft, data)
+        }
     }
-
 }
 
 Tree* tree_search(Tree* tree, int key){
