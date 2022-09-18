@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 typedef struct Node{
@@ -23,20 +23,29 @@ Tree* createTree(int data){
     t->pRight = NULL;
     return t;
 }
-// NRL
+// NLR
 void preOder(Tree* tree){
+    if(tree == NULL){
+        return;
+    }
     cout << tree->data << " ";
     preOder(tree->pLeft);
     preOder(tree->pRight);
 }
 // LNR
 void inOder(Tree* tree){
+    if(tree == NULL){
+        return;
+    }
     preOder(tree->pLeft);
     cout << tree->data << " ";
     preOder(tree->pRight);
 }
 // LRN
 void postOder(Tree* tree){
+    if(tree == NULL){
+        return;
+    }
     preOder(tree->pLeft);
     preOder(tree->pRight);
     cout << tree->data << " ";
@@ -158,7 +167,130 @@ bool removeTree(Tree* tree, int x){
     return 1;
 }
 
-int main(){
+void arrToTree(Tree* &tree, int arr[], int len){
+    for(int i = 0; i < len; ++i){
+        insertTree(tree, arr[i]);
+    }
+}
 
+void levelOder(Tree* tree){
+    if(tree == NULL){
+        return;
+    }
+//    if(level == 1)
+}
+
+void inputArr(int a[], int n){
+    for(int i = 0; i < n; ++i){
+        cin >> a[i];
+    }
+}
+
+int lengthTree(Tree* proot){
+    if(proot == NULL){
+        return 0;
+    }
+    int lengthLeft = lengthTree(proot->pLeft);
+    int lengthRight = lengthTree(proot->pRight);
+    return max(lengthLeft, lengthRight);
+}
+
+
+Tree* findTree(Tree* proot, int dataTarget){
+    if(proot == NULL){
+        return NULL;
+    }
+    if(proot->data == dataTarget){
+        return proot;
+    }
+    if(dataTarget < proot->data){
+        findTree(proot->pLeft, dataTarget);
+    }else{
+        findTree(proot->pRight, dataTarget);
+    }
+}
+
+int countLeaft(Tree* proot){
+    int static count = 0;
+    if(proot->pLeft == NULL || proot->pRight){
+        count++;
+    }
+    countLeaft(proot->pLeft);
+    countLeaft(proot->pRight);
+    return count;
+}
+
+void menu(){
+    cout << "1. Insert node" << endl;
+    cout << "2. Insert node with array" << endl;
+    cout << "3. NLR" << endl;
+    cout << "4. LNR" << endl;
+    cout << "5. LRN" << endl;
+    cout << "6. Level" << endl;
+    cout << "7. Search node" << endl;
+    cout << "8. Length node" << endl;
+    cout << "9. Count node" << endl;
+    cout << "10. Count leaf" << endl;
+}
+
+int main(){
+    Tree* proot;
+    init(proot);
+    do{
+        menu();
+        int choice;
+        cout << choice;
+        switch(choice) {
+            case 1:{
+                int data;
+                cin >> data;
+                insertTree(proot, data);
+                break;
+            }
+            case 2:{
+                cout << "length arr: ";
+                int n;
+                cin >> n;
+                int a[n];
+                inputArr(a, n);
+                arrToTree(proot, a, n);
+                break;
+            }
+            case 3:{
+                cout << "NLR: ";
+                preOder(proot);
+                break;
+            }
+            case 4:{
+                cout << "LRN: ";
+                inOder(proot);
+                break;
+            }
+            case 5:{
+                cout << "LRN: ";
+                postOder(proot);
+                break;
+            }
+            case 6:{
+                cout << "Level: ";
+                levelOder(proot);
+                break;
+            }
+            case 7:{
+                int dataTarget;
+                cin >> dataTarget;
+                Tree* res = findTree(proot, dataTarget);
+                if(res == NULL){
+                    cout << "no info!" << endl;
+                }else{
+                    cout << res->data << endl;
+                }
+                break;
+            }
+            case 8:{
+
+            }
+        }
+    }while(1);
     return 0;
 }
