@@ -239,7 +239,7 @@ int main(){
     do{
         menu();
         int choice;
-        cout << choice;
+        cin >> choice;
         switch(choice) {
             case 1:{
                 int data;
@@ -288,7 +288,7 @@ int main(){
                 break;
             }
             case 8:{
-
+                break;
             }
         }
     }while(1);
