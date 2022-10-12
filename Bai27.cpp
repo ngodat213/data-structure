@@ -235,7 +235,6 @@ void menu(){
 
 int main(){
     Tree* proot;
-    init(proot);
     do{
         menu();
         int choice;
