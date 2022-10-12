@@ -13,16 +13,27 @@ struct Tree{
     int height;
 };
 
+void toString(Node* node){
+        Node* p = node;
+        while(p != NULL){
+            cout << p->data << " ";
+            p=p->next;
+        }
+        cout << endl;
+    }
+
 typedef struct Node* stackN;
 typedef struct Node* queueN;
 
 class LinkedList{
+
+public:
     void init(Node* &node){
         node = NULL;
     }
 
     Node* createNode(int data){
-        Node* p;
+        Node* p = new Node;
         if(p == NULL){
             return NULL;
         }
@@ -175,7 +186,25 @@ class LinkedList{
         }
     }
 
-    // delete
+    void deleteNode(Node* pHead, int targetdata) {
+        if (pHead != NULL) {
+            Node * currNode = pHead;
+            if (pHead->data == targetdata){
+                pHead = pHead->next;
+                delete currNode;
+            }else {
+                Node * prevNode = NULL;
+                while (currNode != NULL && currNode->data != targetdata) {
+                    prevNode = currNode;
+                    currNode = currNode->next;
+                }
+                if (currNode != NULL) {
+                    prevNode->next = currNode->next;
+                    delete currNode;
+                }
+            }
+        }
+    }
 };
 
 class DoubLinkedList{
@@ -546,6 +575,7 @@ void menu(){
     cout << "1. Node" << endl;
     cout << "2. Tree BST" << endl;
     cout << "3. Tree AVL" << endl;
+    cout << "4. exit" << endl;
     cout << "-===========================-" << endl;
 }
 
@@ -591,17 +621,36 @@ int main(){
     Node* prootN;
     Tree* prootT;
 
-    lk.init(prootN);
     do{
-        menu();
+        menuNode();
         int choice;
-        cin << choice;
+        cin >> choice;
         switch(choice){
             case 1:{
-
+                int data;
+                cout << "value: ";
+                cin >> data;
+                prootN = lk.insertFirst(prootN, data);
                 break;
             }
+            case 2:{
+                int data;
+                cout << "value: ";
+                cin >> data;
+                prootN = lk.insertAfter(prootN, data);
+                break;
+            }
+            case 5:{
+                toString(prootN);
+                break;
+            }
+            case 13:{
+                return 0;
+            }
         }
+        system("pause");
+        system("cls");
     }while(1);
     return 0;
 }
+
