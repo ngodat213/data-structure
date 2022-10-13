@@ -61,6 +61,24 @@ public:
         return node;
     }
 
+    Node* insertFirst_Arr(Node* node, int n){
+        int a[n];
+        for(int i = 0; i < n; ++i){
+            cin >> a[i];
+            node = insertFirst(node, a[i]);
+        }
+        return node;
+    }
+
+    Node* insertAfter_Arr(Node* node, int n){
+        int a[n];
+        for(int i = 0; i < n; ++i){
+            cin >> a[i];
+            node = insertAfter(node, a[i]);
+        }
+        return node;
+    }
+
     Node* deleteFirst(Node* node){
         Node* p;
         if(node == NULL){
@@ -103,13 +121,14 @@ public:
 
     Node* searchList(Node* node, int target){
         Node* p = node;
-        while(p != NULL || p->data != target){
+        while(p != NULL){
             if(p->data == target){
                 return p;
             }
             p = p->next;
         }
         cout << "no info!" << endl;
+        return NULL;
     }
 
     Node* sortList(Node* node, bool op){
@@ -148,17 +167,19 @@ public:
         return p;
     }
 
-    int position(Node* pHead, Node* q){
+    int position(Node* pHead, int target){
         int pos = 0;
         Node* p = pHead;
-        while(p != NULL && p != q){
+        while(p != NULL){
+            if(p->data == target){
+                return pos;
+            }
             p=p->next;
             pos++;
         }
         if(p == NULL){
             return -1;
         }
-        return pos;
     }
 
     Node* preNode(Node* pHead, Node* q){
@@ -620,37 +641,74 @@ int main(){
     // -- class struct
     Node* prootN;
     Tree* prootT;
+    lk.init(prootN);
 
-    do{
-        menuNode();
-        int choice;
-        cin >> choice;
-        switch(choice){
-            case 1:{
-                int data;
-                cout << "value: ";
-                cin >> data;
-                prootN = lk.insertFirst(prootN, data);
-                break;
-            }
-            case 2:{
-                int data;
-                cout << "value: ";
-                cin >> data;
-                prootN = lk.insertAfter(prootN, data);
-                break;
-            }
-            case 5:{
-                toString(prootN);
-                break;
-            }
-            case 13:{
-                return 0;
-            }
-        }
-        system("pause");
-        system("cls");
-    }while(1);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    cout << "hello world, i'm hydra coder";
+//    do{
+//        menuNode();
+//        int choice;
+//        cin >> choice;
+//        switch(choice){
+//            case 1:{
+//                int data;
+//                cout << "value: ";
+//                cin >> data;
+//                prootN = lk.insertFirst(prootN, data);
+//                break;
+//            }
+//            case 2:{
+//                int data;
+//                cout << "value: ";
+//                cin >> data;
+//                prootN = lk.insertAfter(prootN, data);
+//                break;
+//            }
+//            case 3:{
+//                int n;
+//                cout << "length: ";
+//                cin >> n;
+//                prootN = lk.insertFirst_Arr(prootN, n);
+//                break;
+//            }
+//            case 4:{
+//                int n;
+//                cout << "length: ";
+//                cin >> n;
+//                prootN = lk.insertAfter_Arr(prootN, n);
+//                break;
+//            }
+//            case 5:{
+//                toString(prootN);
+//                break;
+//            }
+//            case 6:{
+//                int target;
+//                cout << "value: ";
+//                cin >> target;
+//                Node* p = lk.searchList(prootN, target);
+//                if(p){
+//                    cout << "data: " << p->data << endl;
+//                }
+//                break;
+//            }
+//            case 7:{
+//                int target;
+//                cout << "value: ";
+//                cin >> target;
+//                int p = lk.position(prootN, target);
+//                cout << "position: " << p << endl;
+//                break;
+//            }
+//
+//            case 13:{
+//                return 0;
+//            }
+//        }
+//        system("pause");
+//        system("cls");
+//    }while(1);
     return 0;
 }
 
