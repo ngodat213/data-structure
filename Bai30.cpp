@@ -257,7 +257,7 @@ public:
 
     void addNode(Tree* &proot, int data){
         Tree* p = createTree(data);
-        if(proot){
+        if(proot != NULL){
             if(proot->data == data){
                 return;
             }
@@ -640,75 +640,72 @@ int main(){
     TreeAVL tAVL;
     // -- class struct
     Node* prootN;
-    Tree* prootT;
+    Tree* prootT = NULL;
     lk.init(prootN);
-
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    cout << "hello world, i'm hydra coder";
-//    do{
-//        menuNode();
-//        int choice;
-//        cin >> choice;
-//        switch(choice){
-//            case 1:{
-//                int data;
-//                cout << "value: ";
-//                cin >> data;
-//                prootN = lk.insertFirst(prootN, data);
-//                break;
-//            }
-//            case 2:{
-//                int data;
-//                cout << "value: ";
-//                cin >> data;
-//                prootN = lk.insertAfter(prootN, data);
-//                break;
-//            }
-//            case 3:{
-//                int n;
-//                cout << "length: ";
-//                cin >> n;
-//                prootN = lk.insertFirst_Arr(prootN, n);
-//                break;
-//            }
-//            case 4:{
-//                int n;
-//                cout << "length: ";
-//                cin >> n;
-//                prootN = lk.insertAfter_Arr(prootN, n);
-//                break;
-//            }
-//            case 5:{
-//                toString(prootN);
-//                break;
-//            }
-//            case 6:{
-//                int target;
-//                cout << "value: ";
-//                cin >> target;
-//                Node* p = lk.searchList(prootN, target);
-//                if(p){
-//                    cout << "data: " << p->data << endl;
-//                }
-//                break;
-//            }
-//            case 7:{
-//                int target;
-//                cout << "value: ";
-//                cin >> target;
-//                int p = lk.position(prootN, target);
-//                cout << "position: " << p << endl;
-//                break;
-//            }
 //
-//            case 13:{
-//                return 0;
-//            }
-//        }
-//        system("pause");
-//        system("cls");
-//    }while(1);
+//    freopen("input.txt", "r", stdin);
+//    freopen("output.txt", "w", stdout);
+//    cout << "hello world, i'm hydra coder";
+    do{
+        menuNode();
+        int choice;
+        cin >> choice;
+        switch(choice){
+            case 1:{
+                int data;
+                cout << "value: ";
+                cin >> data;
+                tBST.addNode(prootT, data);
+                break;
+            }
+            case 2:{
+                int data;
+                cout << "value: ";
+                cin >> data;
+                prootN = lk.insertAfter(prootN, data);
+                break;
+            }
+            case 3:{
+                tBST.NLR(prootT);
+                break;
+            }
+            case 4:{
+                int n;
+                cout << "length: ";
+                cin >> n;
+                prootN = lk.insertAfter_Arr(prootN, n);
+                break;
+            }
+            case 5:{
+                toString(prootN);
+                break;
+            }
+            case 6:{
+                int target;
+                cout << "value: ";
+                cin >> target;
+                Node* p = lk.searchList(prootN, target);
+                if(p){
+                    cout << "data: " << p->data << endl;
+                }
+                break;
+            }
+            case 7:{
+                int target;
+                cout << "value: ";
+                cin >> target;
+                int p = lk.position(prootN, target);
+                cout << "position: " << p << endl;
+                break;
+            }
+
+            case 13:{
+                return 0;
+            }
+        }
+        system("pause");
+        system("cls");
+    }while(1);
     return 0;
 }
 
